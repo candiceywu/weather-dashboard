@@ -1,4 +1,16 @@
 
-h1 {
+header {
     text-align: center;
+    font-size: 50px;
 }
+
+ul {
+    margin: 3rem auto;
+    font-size: 1.75rem;
+    padding: 0;
+    list-style-type: none;
+  }
+  
+  ul li {
+    margin: 1.2rem 0;
+  }

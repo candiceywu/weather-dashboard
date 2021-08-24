@@ -5,59 +5,47 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- bootstrap css -->
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous"> -->
+
 
     <!-- css from mini-project for layout -->
     <link rel="stylesheet" href="./assets/css/jass.css" />
 
     <!-- personal css -->
     <link rel="stylesheet" href="./assets/css/style.css" />
-    <title>Weather Dashboard</title>
+    <title>Five-Day Forecast</title>
 </head>
 
 <body>
 
     <div class="jumbotron">
         <div class="container">
-            <h1 class="display-1">Weather Dashboard</h1>
-            <!-- <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p> -->
+            <header class="display-1">Weather Dashboard</header>
         </div>
     </div>
+
 
     <div
         class="flex-row align-start align-stretch-md align-content-start align-content-stretch-md min-100-vh bg-primary">
         <div class="col-12 col-md-3 bg-light p-3">
-            <h1 class="text-primary">Search for a City</h1>
-            <form id="search-form" class="mb-2">
-                <input id="search-input" class="form-input w-100" type="text">
-                <select id="format-input" class="form-input w-100">
-                    <option value="" disabled selected>Select a format...</option>
-                    <option value="maps">Maps</option>
-                    <option value="audio">Audio</option>
-                    <option value="photos">Photos</option>
-                    <option value="manuscripts">Manuscripts</option>
-                    <option value="newspapers">Newspapers</option>
-                    <option value="film-and-videos">Film and Videos</option>
-                    <option value="notated-music">Notated Music</option>
-                    <option value="websites">Websites</option>
-                </select>
-                <button class="btn btn-info btn-block">Search</button>
+            <h1 class="text-primary">Search for a City:</h1>
+            <form id="search-form">
+                <input type="text" class="form-input w-100" id="search-input" name="search-input"/>
+                <button class="btn btn-info">Search</button>
             </form>
 
-            <!-- <a href="./index.html" class="btn btn-block btn-danger">&larr; Go back.</a>
-        </div> -->
-
-            <div class="col-12 col-md-9 p-3 text-light">
-                <h2>Showing results for <span id="result-text"></span></h2>
-                <div id="result-content"></div>
-            </div>
+            <ul id="search-list"></ul>
         </div>
 
+        <div class="col-12 col-md-9 p-3 text-light">
+            <h2>Showing results for <span id="result-text"></span></h2>
+            <div id="result-content"></div>
+        </div>
+    </div>
 
+    <!-- Added link to the jQuery library -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
-        <script src="./assets/js/script.js"></script>
+    <script src="./assets/js/script.js"></script>
 </body>
 
 </html>
