@@ -1,7 +1,15 @@
+* {
+  font-family: 'Noto Sans JP', sans-serif;
+}
 
 header {
     text-align: center;
     font-size: 50px;
+}
+
+.jumbotron {
+  background-color: rgb(11, 124, 184);
+  color: white;
 }
 
 ul {
@@ -14,3 +22,46 @@ ul {
   ul li {
     margin: 1.2rem 0;
   }
+
+
+.current-city-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  font-size: 20px;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 20px;
+  border: solid rgb(11, 124, 184);
+}
+
+.five-day-details {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.list-group-item {
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+h1 {
+  text-align: center;
+  padding: 25px;
+}
+
+h3 {
+  text-align: center;
+  padding: 5px;
+  margin: 5px
+}
+
+h5 {
+  text-align: center;
+}

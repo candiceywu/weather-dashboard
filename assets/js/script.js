@@ -3,8 +3,48 @@ var resultContentEl = document.querySelector('#result-content');
 var searchFormEl = $('#search-form');
 var searchListEl = $('#search-list'); // for appending cities
 var searchBtn = $('#search-button');
+var citiesArray = [];
 
 
+
+//moment.js
+var today = moment();
+$("#current-city-date").text(today.format("MMMM Do, YYYY"));
+
+//widget to show next 5 days
+var day1 = moment().add(1,'days');
+$("#day-1").text(day1.format("MMMM Do"));
+
+var day2 = moment().add(2,'days');
+$("#day-2").text(day2.format("MMMM Do"));
+
+var day3 = moment().add(3,'days');
+$("#day-3").text(day3.format("MMMM Do"));
+
+var day4 = moment().add(4,'days');
+$("#day-4").text(day4.format("MMMM Do"));
+
+var day5 = moment().add(5,'days');
+$("#day-5").text(day5.format("MMMM Do"));
+
+
+//displays what's in local storage back on page
+function init () {
+    var savedCities = JSON.parse(localStorage.getItem("city"));
+    if (!savedCities) {
+        return;
+    }
+    citiesArray = savedCities;
+    for (var i = 0; i < citiesArray.length; i++) {
+        var searchListItemEl = $(
+            '<li class="flex-row justify-space-between align-center p-2 bg-white text-dark">'
+        );
+        searchListItemEl.text(citiesArray[i]);
+    
+        // print to the page
+        searchListEl.append(searchListItemEl);
+    }
+}
 
 // logs entry into area under search button
 function handleFormSubmit(event) {
@@ -22,6 +62,9 @@ function handleFormSubmit(event) {
 
     // print to the page
     searchListEl.append(searchListItemEl);
+    var citySearch = $("#search-input").val();
+    citiesArray.push(citySearch);
+    localStorage.setItem("city", JSON.stringify(citiesArray));
 
     // clear the form input element after entry
     $('input[name="search-input"]').val('');
@@ -31,14 +74,13 @@ function handleFormSubmit(event) {
 // event delegation
 searchFormEl.on('submit', handleFormSubmit);
 
-//button clicks, local storage DOES NOT WORK
-searchBtn.on("click", function (event) {
-    event.preventDefault();
-    var citySearch = $("#search-input").val();
-    localStorage.setItem("city", JSON.stringify(citySearch));
-});
+init ();
 
 
+
+// fetch // must log in to create ID key (API key is your login a3837629950be0192cb4fdcba56908b4
+// )
+// api.openweathermap.org/data/2.5/forecast?q={city name}&appid={API key}
 
 
 
