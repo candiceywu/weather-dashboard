@@ -42,10 +42,31 @@ function init() {
         );
         searchListItemEl.text(citiesArray[i]);
 
+        // add delete button to remove list item
+        searchListItemEl.append(
+            '<button class="btn btn-danger btn-small delete-item-btn">X</button>'
+        );
+
         // print to the page
         searchListEl.append(searchListItemEl);
+
+        // clear the form input element
+        $('input[name="search-input"]').val('');
+
     }
 }
+
+function handleRemoveItem(event) {
+    // convert button we pressed (`event.target`) to a jQuery DOM object
+    var btnClicked = $(event.target);
+
+    // get the parent `<li>` element from the button we pressed and remove it
+    btnClicked.parent('li').remove();
+}
+
+
+
+
 
 // logs entry into area under search button
 function handleFormSubmit(event) {
@@ -67,6 +88,45 @@ function handleFormSubmit(event) {
     citiesArray.push(citySearch);
     localStorage.setItem("city", JSON.stringify(citiesArray));
 
+
+
+
+
+    //current day: 
+    var url = "https://api.openweathermap.org/data/2.5/weather?q=" + searchItem + "&appid=a3837629950be0192cb4fdcba56908b4";
+
+    fetch(url)
+        .then(function (response) {
+            return response.json()
+        })
+        .then(function (data) {
+            console.log(data)
+            var lon = data.coord.lon;
+            var lat = data.coord.lat;
+
+            //use api with lon/lat and uv-index info
+            var url = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&units=imperial&exclude=hourly,minutely&appid=a3837629950be0192cb4fdcba56908b4";
+
+            fetch(url)
+                .then(function (response) {
+                    return response.json()
+                })
+                .then(function (data) {
+                    console.log(data)
+
+                    //should i add this here, or before line 101?
+                    $("#current-city").text("City: " + searchItem)
+                    $("#temperature").text("Temperature: " + data.current.temp + "F")
+                    $("#humidity").text("Humidity: " + data.current.humidity)
+                    $("#wind-speed").text("Wind Speed: " + data.current.wind_speed)
+                    $("#uv-index").text("UV-Index: " + data.current.uvi)
+                })
+
+
+        })
+
+
+
     // clear the form input element after entry
     $('input[name="search-input"]').val('');
 
@@ -74,93 +134,12 @@ function handleFormSubmit(event) {
 
 // event delegation
 searchFormEl.on('submit', handleFormSubmit);
+searchListEl.on('click', '.delete-item-btn', handleRemoveItem);
 
 init();
 
 
 
-// fetch // must log in to create ID key (API key is your login a3837629950be0192cb4fdcba56908b4
-// )
 
 
-//call current day: 
 
-var url = "api.openweathermap.org/data/2.5/weather?q=" + citSearch + "&appid=a3837629950be0192cb4fdcba56908b4"
-
-fetch(url)
-.then(function(response){
-    return response.json()
-})
-.then(function(data){
-    console.log(data)
-    var lon = data.coord.lon;
-    var lat = data.coord.lat;
-})
-
-var url = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=hourly,minutely&appid=a3837629950be0192cb4fdcba56908b4"
-
-fetch(url)
-.then(function(response){
-    return response.json()
-})
-.then(function(data){
-    console.log(data)
-})
-
-// //from mini-project
-
-// function searchApi(query, format) {
-//   var locQueryUrl = 'https://www.loc.gov/search/?fo=json';
-
-//   if (format) {
-//     locQueryUrl = 'https://www.loc.gov/' + format + '/?fo=json';
-//   }
-
-//   locQueryUrl = locQueryUrl + '&q=' + query;
-
-//   fetch(locQueryUrl)
-//     .then(function (response) {
-//       if (!response.ok) {
-//         throw response.json();
-//       }
-
-//       return response.json();
-//     })
-//     .then(function (locRes) {
-//       // write query to page so user knows what they are viewing
-//       resultTextEl.textContent = locRes.search.query;
-
-//       console.log(locRes);
-
-//       if (!locRes.results.length) {
-//         console.log('No results found!');
-//         resultContentEl.innerHTML = '<h3>No results found, search again!</h3>';
-//       } else {
-//         resultContentEl.textContent = '';
-//         for (var i = 0; i < locRes.results.length; i++) {
-//           printResults(locRes.results[i]);
-//         }
-//       }
-//     })
-//     .catch(function (error) {
-//       console.error(error);
-//     });
-// }
-
-// function handleSearchFormSubmit(event) {
-//   event.preventDefault();
-
-//   var searchInputVal = document.querySelector('#search-input').value;
-//   var formatInputVal = document.querySelector('#format-input').value;
-
-//   if (!searchInputVal) {
-//     console.error('You need a search input value!');
-//     return;
-//   }
-
-//   searchApi(searchInputVal, formatInputVal);
-// }
-
-// searchFormEl.addEventListener('submit', handleSearchFormSubmit);
-
-// getParams();
