@@ -1,5 +1,3 @@
-var searchTextEl = document.querySelector('#result-text');
-var resultContentEl = document.querySelector('#result-content');
 var searchFormEl = $('#search-form');
 var searchListEl = $('#search-list'); // for appending cities
 var searchBtn = $('#search-button');
@@ -52,6 +50,8 @@ function init() {
 
         // clear the form input element
         $('input[name="search-input"]').val('');
+
+ 
 
     }
 }
@@ -115,27 +115,40 @@ function handleFormSubmit(event) {
                     console.log(data)
 
                     $("#current-city").text("City: " + searchItem)
-                    $("#temperature").text("Temperature: " + data.current.temp + "F")
-                    $("#humidity").text("Humidity: " + data.current.humidity)
-                    $("#wind-speed").text("Wind Speed: " + data.current.wind_speed)
-                    $("#uv-index").text("UV-Index: " + data.current.uvi)
+                    $("#temperature").text("Temperature: " + data.current.temp + "°F")
+                    $("#humidity").text("Humidity: " + data.current.humidity + "%")
+                    $("#wind-speed").text("Wind Speed: " + data.current.wind_speed + " mph")
+                    $("#uv-index").text("UV-Index: " + data.current.uvi + " of 10")
+                    generateFiveDayForecast(data.daily);
                 })
+
         })
 
 
-//5-day forecast
-
-// for (i = 0; i < 6; i++) {
 
 
-// }
+    }
 
 
 
 
 
-    // clear the form input element after entry
-    $('input[name="search-input"]').val('');
+
+
+
+function generateFiveDayForecast(data) {
+    //5-day forecast -- should append h1 tags to html. 
+    console.log("data-daily", data);
+    var fiveDay = $("#five-day-forecast");
+    console.log(fiveDay);
+
+    for (let i = 0; i < 5; i++) {
+        $("#five-day-forecast").append(`<div>${data[i].temp.day + "°F"}</div>`);
+        // $("#five-day-forecast").append(`<div>${data[i].humidity + "%"}</div>`);
+        // $("#five-day-forecast").append(`<div>${data[i].wind_speed + " mph"}</div>`);
+        // $("#five-day-forecast").append(`<div>${data[i].uvi + " of 10"}</div>`);
+
+    }
 
 }
 
