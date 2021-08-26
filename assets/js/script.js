@@ -114,16 +114,23 @@ function handleFormSubmit(event) {
                 .then(function (data) {
                     console.log(data)
 
-                    //should i add this here, or before line 101?
                     $("#current-city").text("City: " + searchItem)
                     $("#temperature").text("Temperature: " + data.current.temp + "F")
                     $("#humidity").text("Humidity: " + data.current.humidity)
                     $("#wind-speed").text("Wind Speed: " + data.current.wind_speed)
                     $("#uv-index").text("UV-Index: " + data.current.uvi)
                 })
-
-
         })
+
+
+//5-day forecast
+
+// for (i = 0; i < 6; i++) {
+
+
+// }
+
+
 
 
 
