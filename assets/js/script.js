@@ -7,23 +7,23 @@ var citiesArray = [];
 
 //moment.js for top of page
 var today = moment();
-$("#current-city-date").text(today.format("MMMM Do, YYYY"));
+$("#current-day").text(today.format("MMMM Do, YYYY"));
 
 // //moment.js to show next 5 days
-// var day1 = moment().add(1, 'days');
-// $("#day-1").text(day1.format("MMMM Do"));
+var day1 = moment().add(1, 'days');
+$("#0").text(day1.format("MMMM Do"));
 
-// var day2 = moment().add(2, 'days');
-// $("#day-2").text(day2.format("MMMM Do"));
+var day2 = moment().add(2, 'days');
+$("#1").text(day2.format("MMMM Do"));
 
-// var day3 = moment().add(3, 'days');
-// $("#day-3").text(day3.format("MMMM Do"));
+var day3 = moment().add(3, 'days');
+$("#2").text(day3.format("MMMM Do"));
 
-// var day4 = moment().add(4, 'days');
-// $("#day-4").text(day4.format("MMMM Do"));
+var day4 = moment().add(4, 'days');
+$("#3").text(day4.format("MMMM Do"));
 
-// var day5 = moment().add(5, 'days');
-// $("#day-5").text(day5.format("MMMM Do"));
+var day5 = moment().add(5, 'days');
+$("#4").text(day5.format("MMMM Do"));
 
 
 
@@ -40,19 +40,6 @@ function init() {
         );
         searchListItemEl.text(citiesArray[i]);
 
-        // add delete button to remove list item
-        searchListItemEl.append(
-            '<button class="btn btn-danger btn-small delete-item-btn">X</button>'
-        );
-
-        // print to the page
-        searchListEl.append(searchListItemEl);
-
-        // clear the form input element
-        $('input[name="search-input"]').val('');
-
- 
-
     }
 }
 
@@ -65,7 +52,11 @@ function handleRemoveItem(event) {
 }
 
 
+// event delegation
+searchFormEl.on('submit', handleFormSubmit);
+searchListEl.on('click', '.delete-item-btn', handleRemoveItem);
 
+init();
 
 
 // logs entry into area under search button
@@ -82,14 +73,20 @@ function handleFormSubmit(event) {
     );
     searchListItemEl.text(searchItem);
 
+    // add delete button to remove list item
+    searchListItemEl.append(
+        '<button class="btn btn-danger btn-small delete-item-btn">X</button>'
+    );
+
+    // clear the form input element
+    $('input[name="search-input"]').val('');
+
+
     // print to the page
     searchListEl.append(searchListItemEl);
     var citySearch = $("#search-input").val();
     citiesArray.push(citySearch);
     localStorage.setItem("city", JSON.stringify(citiesArray));
-
-
-
 
 
     //current day: 
@@ -127,36 +124,39 @@ function handleFormSubmit(event) {
 
 
 
-    }
+}
 
 
 
 
-
-
-
-
+//5-day forecast 
 function generateFiveDayForecast(data) {
-    //5-day forecast -- should append h1 tags to html. 
     console.log("data-daily", data);
     var fiveDay = $("#five-day-forecast");
     console.log(fiveDay);
 
     for (let i = 0; i < 5; i++) {
-        $("#five-day-forecast").append(`<div>${data[i].temp.day + "°F"}</div>`);
-        // $("#five-day-forecast").append(`<div>${data[i].humidity + "%"}</div>`);
-        // $("#five-day-forecast").append(`<div>${data[i].wind_speed + " mph"}</div>`);
-        // $("#five-day-forecast").append(`<div>${data[i].uvi + " of 10"}</div>`);
+        $(`#${i}`).append("Temperature: " + `<div>${data[i].temp.day + "°F"}</div>`);
+        $(`#${i}`).append("Humidity: " + `<div>${data[i].humidity + "%"}</div>`);
+        $(`#${i}`).append("Wind Speed: " + `<div>${data[i].wind_speed + " mph"}</div>`);
+        $(`#${i}`).append("UV Index: " + `<div>${data[i].uvi + " of 10"}</div>`);
 
     }
 
 }
 
-// event delegation
-searchFormEl.on('submit', handleFormSubmit);
-searchListEl.on('click', '.delete-item-btn', handleRemoveItem);
+// //for weather icon - data.current.weather.id; data[i]/daily[??].weather.id;
 
-init();
+// 100-199: http://openweathermap.org/img/wn/01d@2x.png 
+// 200-299: http://openweathermap.org/img/wn/11d@2x.png
+// 300-399: http://openweathermap.org/img/wn/09d@2x.png
+// 500-599: http://openweathermap.org/img/wn/10d@2x.png
+// 600-699: http://openweathermap.org/img/wn/13d@2x.png
+// 700-799: http://openweathermap.org/img/wn/50d@2x.png
+// 801: http://openweathermap.org/img/wn/02d@2x.png
+// 802: http://openweathermap.org/img/wn/03d@2x.png
+// 803-804: http://openweathermap.org/img/wn/04d@2x.png
+
 
 
 

@@ -20,7 +20,7 @@ ul {
   }
   
   ul li {
-    margin: 1.2rem 0;
+    font-size: 18px;
   }
 
 
@@ -54,6 +54,10 @@ ul {
 h1 {
   text-align: center;
   padding: 25px;
+}
+
+h2 {
+  justify-content: center;
 }
 
 h3 {

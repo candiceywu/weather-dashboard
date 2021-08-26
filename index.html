@@ -50,11 +50,12 @@
         </div>
 
 
-
+        <!-- today's weather container  -->
         <div class="col-12 col-md-9 p-10 mt-5 mb-5">
 
             <div class="container current-city-details">
-                <h2>Today's Weather</h2>
+                <h2 class="weather mb-4">Today's Weather</h2>
+                <div id="current-day"></div>
                 <div id="current-city">City: </div>
                 <div id="temperature">Temperature: </div>
                 <div id="humidity">Humidity: </div>
@@ -64,26 +65,34 @@
 
             <h3>Five-Day Forecast:</h3>
 
-            <div class="container five-day-details p-10 mt-5 mb-5" id="five-day-forecast">
+            <div class="five-day-forecast">
+
+                <div class="container five-day-details p-1 mt-1 mb-5" id="five-day-forecast">
+                    <div id="0"></div>
+                    <div id="1"></div>
+                    <div id="2"></div>
+                    <div id="3"></div>
+                    <div id="4"></div>
+                </div>
 
 
                 <!-- next 5 days -->
 
-                <!-- <div class="card m-1" style="width: 18rem;">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title" id="future-day"></h5>
+                <!-- <div class="card m-1" style="width: 18rem;"> -->
+                <!-- <img src="..." class="card-img-top" alt="..."> -->
+                <!-- <div class="card-body">
+                        <h4 class="card-title" id="future-day"></h4>
                     </div>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item" id="future-temp">Temperature: </li>
+                        <li class="list-group-item" id="future-temp">Temp: </li>
                         <li class="list-group-item" id="future-humidity">Humidity: </li>
                         <li class="list-group-item" id="future-wind-speed">Wind Speed: </li>
-                        <li class="list-group-item" id="uv-index">UV-Index: </li>
-                    </ul>
-                </div> -->
-
-
+                        <li class="list-group-item" id="future-uv-index">UV-Index: </li>
+                    </ul> -->
             </div>
+
+
+            <!-- </div> -->
         </div>
     </div>
 
