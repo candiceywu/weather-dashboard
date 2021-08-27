@@ -6,8 +6,8 @@ var citiesArray = [];
 
 
 //moment.js for top of page
-// var today = moment();
-// $("#current-day").text(today.format("MMMM Do, YYYY"));
+var today = moment();
+$("#current-day").text(today.format("MMMM Do, YYYY"));
 
 // //moment.js to show next 5 days
 var day1 = moment().add(1, 'days');
@@ -111,10 +111,10 @@ function handleFormSubmit(event) {
                 })
                 .then(function (data) {
                     console.log(data)
-
-                    // $("#current-weather-icon").text(data.current.weather[0].icon);
-                    // var currentWeatherIcon = data.current.weather[0].icon;
-                    // console.log(currentWeatherIcon);
+                    var iconLink = $("<img>");
+                    iconLink.attr("src", `https://openweathermap.org/img/w/${data.current.weather[0].icon}.png`);
+                    iconLink.text("icon");
+                    $("#current-weather-icon").html(iconLink);
                     $("#current-city").text("City: " + searchItem);
                     $("#temperature").text("Temperature: " + data.current.temp + "°F");
                     $("#humidity").text("Humidity: " + data.current.humidity + "%");
@@ -136,21 +136,15 @@ function generateFiveDayForecast(data) {
     console.log(fiveDay);
 
     for (let i = 1; i < 6; i++) {
-        // $(`#${i}`).append();
         var iconLink = $("<img>");
         iconLink.attr("src", `https://openweathermap.org/img/w/${data[i].weather[0].icon}.png`);
         iconLink.text("icon");
         // iconLink.addClass("link");
-        $(`#${i}`).html(iconLink);
-
+        $(`#${i}`).append(iconLink);
         $(`#${i}`).append("Temperature: " + `<div>${data[i].temp.day + "°F"}</div>`);
         $(`#${i}`).append("Humidity: " + `<div>${data[i].humidity + "%"}</div>`);
         $(`#${i}`).append("Wind Speed: " + `<div>${data[i].wind_speed + " mph"}</div>`);
         $(`#${i}`).append("UV Index: " + `<div>${data[i].uvi + " of 10"}</div>`);
 
-    
-    
     }
-
-    
 }
