@@ -6,8 +6,8 @@ var citiesArray = [];
 
 
 //moment.js for top of page
-var today = moment();
-$("#current-day").text(today.format("MMMM Do, YYYY"));
+// var today = moment();
+// $("#current-day").text(today.format("MMMM Do, YYYY"));
 
 // //moment.js to show next 5 days
 var day1 = moment().add(1, 'days');
@@ -30,6 +30,7 @@ $("#5").text(day5.format("MMMM Do"));
 //displays what's in local storage back on page
 function init() {
     var savedCities = JSON.parse(localStorage.getItem("city"));
+
     if (!savedCities) {
         return;
     }
@@ -110,9 +111,10 @@ function handleFormSubmit(event) {
                 })
                 .then(function (data) {
                     console.log(data)
-                    $("#current-weather-icon").text(data.current.weather.icon);
-                    var currentWeatherIcon = data.current.weather[0].icon;
-                    console.log(currentWeatherIcon);
+
+                    // $("#current-weather-icon").text(data.current.weather[0].icon);
+                    // var currentWeatherIcon = data.current.weather[0].icon;
+                    // console.log(currentWeatherIcon);
                     $("#current-city").text("City: " + searchItem);
                     $("#temperature").text("Temperature: " + data.current.temp + "°F");
                     $("#humidity").text("Humidity: " + data.current.humidity + "%");
@@ -134,19 +136,21 @@ function generateFiveDayForecast(data) {
     console.log(fiveDay);
 
     for (let i = 1; i < 6; i++) {
-        $(`#${i}`).append();
+        // $(`#${i}`).append();
         var iconLink = $("<img>");
         iconLink.attr("src", `https://openweathermap.org/img/w/${data[i].weather[0].icon}.png`);
         iconLink.text("icon");
         // iconLink.addClass("link");
-        // $(`#${i}`).append(`<div>${data[i].weather[0].icon}</div>`);
-        // var icon = `${data[i].weather[0].icon}`;
-        // console.log(icon);
+        $(`#${i}`).html(iconLink);
+
         $(`#${i}`).append("Temperature: " + `<div>${data[i].temp.day + "°F"}</div>`);
         $(`#${i}`).append("Humidity: " + `<div>${data[i].humidity + "%"}</div>`);
         $(`#${i}`).append("Wind Speed: " + `<div>${data[i].wind_speed + " mph"}</div>`);
         $(`#${i}`).append("UV Index: " + `<div>${data[i].uvi + " of 10"}</div>`);
 
-
+    
+    
     }
+
+    
 }
