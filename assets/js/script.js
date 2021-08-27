@@ -11,19 +11,19 @@ $("#current-day").text(today.format("MMMM Do, YYYY"));
 
 // //moment.js to show next 5 days
 var day1 = moment().add(1, 'days');
-$("#0").text(day1.format("MMMM Do"));
+$("#1").text(day1.format("MMMM Do"));
 
 var day2 = moment().add(2, 'days');
-$("#1").text(day2.format("MMMM Do"));
+$("#2").text(day2.format("MMMM Do"));
 
 var day3 = moment().add(3, 'days');
-$("#2").text(day3.format("MMMM Do"));
+$("#3").text(day3.format("MMMM Do"));
 
 var day4 = moment().add(4, 'days');
-$("#3").text(day4.format("MMMM Do"));
+$("#4").text(day4.format("MMMM Do"));
 
 var day5 = moment().add(5, 'days');
-$("#4").text(day5.format("MMMM Do"));
+$("#5").text(day5.format("MMMM Do"));
 
 
 
@@ -110,20 +110,18 @@ function handleFormSubmit(event) {
                 })
                 .then(function (data) {
                     console.log(data)
-
-                    $("#current-city").text("City: " + searchItem)
-                    $("#temperature").text("Temperature: " + data.current.temp + "°F")
-                    $("#humidity").text("Humidity: " + data.current.humidity + "%")
-                    $("#wind-speed").text("Wind Speed: " + data.current.wind_speed + " mph")
-                    $("#uv-index").text("UV-Index: " + data.current.uvi + " of 10")
+                    $("#current-weather-icon").text(data.current.weather.icon);
+                    var currentWeatherIcon = data.current.weather[0].icon;
+                    console.log(currentWeatherIcon);
+                    $("#current-city").text("City: " + searchItem);
+                    $("#temperature").text("Temperature: " + data.current.temp + "°F");
+                    $("#humidity").text("Humidity: " + data.current.humidity + "%");
+                    $("#wind-speed").text("Wind Speed: " + data.current.wind_speed + " mph");
+                    $("#uv-index").text("UV-Index: " + data.current.uvi + " of 10");
                     generateFiveDayForecast(data.daily);
+
                 })
-
         })
-
-
-
-
 }
 
 
@@ -135,31 +133,20 @@ function generateFiveDayForecast(data) {
     var fiveDay = $("#five-day-forecast");
     console.log(fiveDay);
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 1; i < 6; i++) {
+        $(`#${i}`).append();
+        var iconLink = $("<img>");
+        iconLink.attr("src", `https://openweathermap.org/img/w/${data[i].weather[0].icon}.png`);
+        iconLink.text("icon");
+        // iconLink.addClass("link");
+        // $(`#${i}`).append(`<div>${data[i].weather[0].icon}</div>`);
+        // var icon = `${data[i].weather[0].icon}`;
+        // console.log(icon);
         $(`#${i}`).append("Temperature: " + `<div>${data[i].temp.day + "°F"}</div>`);
         $(`#${i}`).append("Humidity: " + `<div>${data[i].humidity + "%"}</div>`);
         $(`#${i}`).append("Wind Speed: " + `<div>${data[i].wind_speed + " mph"}</div>`);
         $(`#${i}`).append("UV Index: " + `<div>${data[i].uvi + " of 10"}</div>`);
 
+
     }
-
 }
-
-// //for weather icon - data.current.weather.id; data[i]/daily[??].weather.id;
-
-// 100-199: http://openweathermap.org/img/wn/01d@2x.png 
-// 200-299: http://openweathermap.org/img/wn/11d@2x.png
-// 300-399: http://openweathermap.org/img/wn/09d@2x.png
-// 500-599: http://openweathermap.org/img/wn/10d@2x.png
-// 600-699: http://openweathermap.org/img/wn/13d@2x.png
-// 700-799: http://openweathermap.org/img/wn/50d@2x.png
-// 801: http://openweathermap.org/img/wn/02d@2x.png
-// 802: http://openweathermap.org/img/wn/03d@2x.png
-// 803-804: http://openweathermap.org/img/wn/04d@2x.png
-
-
-
-
-
-
-
