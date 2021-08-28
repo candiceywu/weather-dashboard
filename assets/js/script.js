@@ -30,32 +30,40 @@ $("#5").text(day5.format("MMMM Do"));
 //displays what's in local storage back on page
 function init() {
     var savedCities = JSON.parse(localStorage.getItem("city"));
-
+    console.log(savedCities);
     if (!savedCities) {
         return;
     }
     citiesArray = savedCities;
     for (var i = 0; i < citiesArray.length; i++) {
         var searchListItemEl = $(
-            '<li class="flex-row justify-space-between align-center p-2 bg-white text-dark">'
+            '<button class="btn-block flex-row justify-space-between align-center rounded pt-2 pb-2 mt-3 mb-3 bg-light text-dark w-50"></button>'
         );
         searchListItemEl.text(citiesArray[i]);
+
+        // //delete button to remove city
+        // searchListItemEl.append(
+        //     '<button class="btn btn-danger btn-small delete-item-btn">X</button>'
+        // );
+
+        // print to the page
+        searchListEl.append(searchListItemEl);
 
     }
 }
 
-function handleRemoveItem(event) {
-    // convert button we pressed (`event.target`) to a jQuery DOM object
-    var btnClicked = $(event.target);
 
-    // get the parent `<li>` element from the button we pressed and remove it
-    btnClicked.parent('li').remove();
-}
+// function handleRemoveItem(event) {
+//     // convert button we pressed (`event.target`) to a jQuery DOM object
+//     var btnClicked = $(event.target);
 
+//     // get the parent `<li>` element from the button we pressed and remove it
+//     btnClicked.parent('li').remove();
+// }
 
 // event delegation
 searchFormEl.on('submit', handleFormSubmit);
-searchListEl.on('click', '.delete-item-btn', handleRemoveItem);
+// searchListEl.on('click', '.delete-item-btn', handleRemoveItem);
 
 init();
 
@@ -70,29 +78,43 @@ function handleFormSubmit(event) {
     }
 
     var searchListItemEl = $(
-        '<li class="flex-row justify-space-between align-center p-2 bg-white text-dark">'
+        '<button class="btn-block flex-row justify-space-between align-center rounded pt-2 pb-2 mt-3 mb-3 bg-light text-dark w-50"></button>'
     );
     searchListItemEl.text(searchItem);
 
-    // add delete button to remove list item
-    searchListItemEl.append(
-        '<button class="btn btn-danger btn-small delete-item-btn">X</button>'
-    );
-
-    // clear the form input element
-    $('input[name="search-input"]').val('');
-
+    // // add delete button to remove list item
+    // searchListItemEl.append(
+    //     '<button class="btn btn-danger btn-small delete-item-btn">X</button>'
+    // );
 
     // print to the page
     searchListEl.append(searchListItemEl);
     var citySearch = $("#search-input").val();
+    console.log(citySearch);
     citiesArray.push(citySearch);
     localStorage.setItem("city", JSON.stringify(citiesArray));
+    // test.text("");
+
+    // clear the form input element
+    $('input[name="search-input"]').val('');
+
+    generateWeatherHistory(searchItem);
+}
 
 
+//clicking city button will pull up previous weather value 
+var btnClassClick = function (e) {
+    console.log(e.currentTarget.textContent);
+    generateWeatherHistory(e.currentTarget.textContent);
+}
+$('.btn-block').on('click', btnClassClick);
+
+
+
+//fetching API data
+function generateWeatherHistory(searchItem) {
     //current day: 
     var url = "https://api.openweathermap.org/data/2.5/weather?q=" + searchItem + "&appid=a3837629950be0192cb4fdcba56908b4";
-
     fetch(url)
         .then(function (response) {
             return response.json()
@@ -121,11 +143,10 @@ function handleFormSubmit(event) {
                     $("#wind-speed").text("Wind Speed: " + data.current.wind_speed + " mph");
                     $("#uv-index").text("UV-Index: " + data.current.uvi + " of 10");
                     generateFiveDayForecast(data.daily);
-
+                    console.log(data.daily);
                 })
         })
 }
-
 
 
 
@@ -135,16 +156,19 @@ function generateFiveDayForecast(data) {
     var fiveDay = $("#five-day-forecast");
     console.log(fiveDay);
 
+
     for (let i = 1; i < 6; i++) {
         var iconLink = $("<img>");
         iconLink.attr("src", `https://openweathermap.org/img/w/${data[i].weather[0].icon}.png`);
         iconLink.text("icon");
-        // iconLink.addClass("link");
         $(`#${i}`).append(iconLink);
         $(`#${i}`).append("Temperature: " + `<div>${data[i].temp.day + "°F"}</div>`);
         $(`#${i}`).append("Humidity: " + `<div>${data[i].humidity + "%"}</div>`);
         $(`#${i}`).append("Wind Speed: " + `<div>${data[i].wind_speed + " mph"}</div>`);
         $(`#${i}`).append("UV Index: " + `<div>${data[i].uvi + " of 10"}</div>`);
+
+        //find a way to remove children .children
+
 
     }
 }
