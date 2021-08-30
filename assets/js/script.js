@@ -66,6 +66,7 @@ function handleFormSubmit(event) {
     $('input[name="search-input"]').val('');
 
     generateWeatherHistory(searchItem);
+
 }
 
 // event delegation
@@ -79,7 +80,7 @@ var btnClassClick = function (e) {
     generateWeatherHistory(e.currentTarget.textContent);
 }
 
-$('.btn-block').on('click', btnClassClick);
+$('#search-list').on('click', '.btn-block', btnClassClick);
 
 
 
@@ -129,20 +130,31 @@ function generateWeatherHistory(searchItem) {
         console.log(fiveDay);
 
 
+
         for (let i = 1; i < 6; i++) {
+            // var count = 1;
+
+            //clears the five-day forecast for each subsequent city clicked
+            $(`#${i}`).html("");
+
+            //adds moment.js back in
+            var day = moment().add(i, 'days');
+            $(`#${i}`).text(day.format("MMMM Do"));
+
             var iconLink = $("<img>");
             iconLink.attr("src", `https://openweathermap.org/img/w/${data[i].weather[0].icon}.png`);
             iconLink.text("icon");
+
             $(`#${i}`).append(iconLink);
             $(`#${i}`).append("Temperature: " + `<div>${data[i].temp.day + "°F"}</div>`);
             $(`#${i}`).append("Humidity: " + `<div>${data[i].humidity + "%"}</div>`);
             $(`#${i}`).append("Wind Speed: " + `<div>${data[i].wind_speed + " mph"}</div>`);
             $(`#${i}`).append("UV Index: " + `<div>${data[i].uvi + " of 10"}</div>`);
 
-            //find a way to remove children .children
 
 
         }
+
     }
 }
 
