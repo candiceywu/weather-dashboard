@@ -12,7 +12,7 @@ header {
 }
 
 .jumbotron {
-  background-color: rgb(11, 124, 184);
+  background-color: rgb(8, 108, 161);
   color: white;
 }
 
@@ -37,7 +37,7 @@ ul {
   justify-content: space-between;
   align-items: flex-start;
   padding: 20px;
-  border: solid rgb(11, 124, 184);
+  border: solid rgb(8, 108, 161);
 }
 
 .five-day-details {
@@ -57,7 +57,7 @@ ul {
 
 h1 {
   text-align: center;
-  padding: 25px;
+  padding: 28px;
 }
 
 h3 {
