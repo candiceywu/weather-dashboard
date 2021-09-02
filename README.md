@@ -21,4 +21,4 @@ The user can easily search for a city to find out the current weather and five-d
 
 (c) Candice Wu 
 
-Licensed under the MIT License.
+Licensed under the MIT License [click here](license).
