@@ -1,5 +1,7 @@
 # weather-dashboard
 
+![license](https://img.shields.io/badge/license-MIT-blue.svg)
+
 ## Description
 This application, Weather Dashboard, was created with the purpose of allowing the user to search for a city in the United States and see its current weather (including temperature, humidity, wind speed, and UV index) as well as the weather for the next five days. Once the user has searched for a city, it is saved in local storage as well as below the search bar so the user knows what cities they've searched for. The user can also click on a previously-searched city to quickly load its current and five-day forecast again. 
 
